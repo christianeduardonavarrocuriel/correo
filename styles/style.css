@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Fondo con desenfoque */
+.background {
+    position: fixed;
+    top: -20px;
+    left: -20px;
+    width: calc(100% + 40px);
+    height: calc(100% + 40px);
+    background-color: #1f2b3a;
+    background-image: image-set(
+        url('../images/fondo-blur-960.webp') 1x,
+        url('../images/fondo-blur-1920.webp') 2x
+    );
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+/* Contenedor relativo libre */
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Pato colocado absolutamente con recortes tal cual la imagen */
+.duck-image {
+    position: absolute;
+    left: -24vw;
+    /* Ajusto la izquierda para que al ser más grande siga sin verse la pata izquierda */
+    bottom: -15vh;
+    /* Ajusto la base del recorte */
+    height: 125vh;
+    /* Incremento 10 al tamaño anterior de 115vh */
+    width: auto;
+    object-fit: contain;
+    z-index: 1;
+}
+
+/* Texto libre y sobrepuesto */
+.info-wrapper {
+    position: absolute;
+    /* Lo ubicamos posicionado a la derecha de la composición visual con coordenadas */
+    left: 45vw;
+    /* Centrando en el espacio muerto de la derecha */
+    top: 22vh;
+    /* Coincide con la elevación en la imagen */
+    width: 50vw;
+    /* El ancho donde va centrado el texto */
+    color: white;
+    text-align: center;
+    z-index: 10;
+    /* Lo ponemos hasta arriba de todo para tener libertad */
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    /* Mantiene legibilidad perfecta */
+}
+
+.info-wrapper h1 {
+    font-size: 3.5vw;
+    font-weight: 700;
+    margin-bottom: 2vh;
+    text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.info-wrapper p {
+    font-size: 1.6vw;
+    font-weight: 400;
+    line-height: 1.4;
+    max-width: 40vw;
+    margin: 0 auto;
+}
+
+/* Responsividad para móviles (Android/iOS) */
+@media (max-width: 768px) {
+    .info-wrapper {
+        left: 0;
+        top: 8vh;
+        width: 100%;
+        padding: 0 30px;
+        text-align: center;
+    }
+
+    .info-wrapper h1 {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        line-height: 1.2;
+    }
+
+    .info-wrapper p {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.5;
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    .duck-image {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -5vh;
+        height: 80vh;
+        /* El pato se ve grande como en la imagen */
+        width: auto;
+    }
+}
+
+/* Ajuste específico para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .info-wrapper h1 {
+        font-size: 28px;
+    }
+
+    .info-wrapper p {
+        font-size: 16px;
+    }
+
+    .duck-image {
+        height: 70vh;
+    }
+}
