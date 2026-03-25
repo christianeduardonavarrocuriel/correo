@@ -2,6 +2,11 @@ import web
 import os
 import sys
 
+
+def set_static_cache_headers(seconds=604800):
+    # Cache de 7 dias para recursos estaticos; immutable evita revalidaciones innecesarias.
+    web.header('Cache-Control', f'public, max-age={seconds}, immutable')
+
 # Definir las rutas
 # Notar que '/' llevará a la clase 'index'
 # Las rutas de estilos e imágenes se sirven manualmente si no se usa una carpeta 'static'
@@ -26,8 +31,9 @@ class styles:
         try:
             # Especificar el tipo de contenido para el CSS
             web.header('Content-Type', 'text/css')
-            f = open(os.path.join('styles', file), 'r')
-            return f.read()
+            set_static_cache_headers()
+            with open(os.path.join('styles', file), 'r') as f:
+                return f.read()
         except FileNotFoundError:
             return web.notfound()
 
@@ -38,11 +44,14 @@ class images:
             # Intentar detectar el tipo de imagen basándose en la extensión
             if file.endswith('.png'):
                 web.header('Content-Type', 'image/png')
+            elif file.endswith('.webp'):
+                web.header('Content-Type', 'image/webp')
             elif file.endswith('.jpg') or file.endswith('.jpeg'):
                 web.header('Content-Type', 'image/jpeg')
-            
-            f = open(os.path.join('images', file), 'rb')
-            return f.read()
+
+            set_static_cache_headers()
+            with open(os.path.join('images', file), 'rb') as f:
+                return f.read()
         except FileNotFoundError:
             return web.notfound()
 
