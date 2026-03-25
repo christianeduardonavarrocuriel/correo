@@ -24,8 +24,8 @@ html {
     height: calc(100% + 40px);
     background-color: #1f2b3a;
     background-image: image-set(
-        url('../images/fondo-blur-960.webp') 1x,
-        url('../images/fondo-blur-1920.webp') 2x
+        url('./fondo-blur-960.webp') 1x,
+        url('./fondo-blur-1920.webp') 2x
     );
     background-size: cover;
     background-position: center;
